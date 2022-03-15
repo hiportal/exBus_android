@@ -421,7 +421,8 @@ public class IntroActivity extends AppCompatActivity {
         Log.d(TAG, "sendToken() - packageName : "+context.getPackageName());
         Log.d(TAG, "sendToken() - mdn : "+ getMdn(context));
         Log.d(TAG, "sendToken() - imei : "+getImei(context));
-        String url = "http://travel.ex.co.kr/cloudpush/mergeClientInfo.do?app_info="+context.getPackageName()+"&device_id="+ getMdn(context)+"&device_imei="+getImei(context)+"&device_token="+token;
+        String url = "http://mvote.ex.co.kr/exBus/merge_client.jsp?app_info="+context.getPackageName()+"&device_id="+ getMdn(context)
+                +"&device_imei="+getImei(context)+"&device_token="+token+"&device_cd=A";
         Log.d(TAG, "sendToken() - url : "+url);
 
         if(token!=null && !("").equals(token)){
