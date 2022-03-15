@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "836912633778",
+    "firebase_url": "https://exbus-18404.firebaseio.com",
+    "project_id": "exbus-18404",
+    "storage_bucket": "exbus-18404.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836912633778:android:477fe1ab6df32d18",
+        "android_client_info": {
+          "package_name": "com.ex.exbus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "836912633778-bee5dvgblvgbf233t01vl9hnlv2anv6m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3_lBhIuXOTsQVKMmU425-7CgHuwBs4rI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "836912633778-bee5dvgblvgbf233t01vl9hnlv2anv6m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "836912633778-23rsb4cemp1loi9559ep1piutvp5489p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ex.exbus"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

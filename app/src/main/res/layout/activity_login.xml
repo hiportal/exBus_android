@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF">
+
+            <ImageView
+                android:id="@+id/a"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:background="#FFFFFF"
+                android:src="@drawable/btn_logo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="로그인"
+                android:textColor="#ff000000"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:src="@drawable/bg_title" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="#c2c2c2"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center_horizontal"
+                android:text="예약시 사용할 \n사원번호(발급번호)를 입력하여 주십시오."
+                android:textColor="#ff000000"
+                android:textSize="15sp" />
+
+            <!-- 사원번호 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="45dp"
+                android:layout_marginLeft="45dp"
+                android:weightSum="10"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:text="사원번호"
+                    android:textColor="#ff000000"
+                    android:textSize="13sp"/>
+
+                <EditText
+                    android:id="@+id/et_login_id"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:focusable="true"
+                    android:gravity="center_horizontal"
+                    android:inputType="numberDecimal"
+                    android:textColor="#ff000000"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- 비밀번호 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="45dp"
+                android:layout_marginLeft="45dp"
+                android:weightSum="10"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="3"
+                    android:text="하이포탈\n비밀번호"
+                    android:textColor="#ff000000"
+                    android:textSize="13sp"/>
+
+                <EditText
+                    android:id="@+id/et_login_pwd"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:focusable="true"
+                    android:gravity="center_horizontal"
+                    android:inputType="text"
+                    android:textColor="#ff000000"
+                    android:password="true"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/btn_login"
+                android:text="확 인"
+                android:textColor="#ffffff"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
