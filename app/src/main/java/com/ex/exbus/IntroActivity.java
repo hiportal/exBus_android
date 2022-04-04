@@ -1,5 +1,6 @@
 package com.ex.exbus;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -36,7 +37,10 @@ import com.ex.exbus.util.CommonUtil;
 import com.ex.exbus.util.HttpConnection;
 import com.ex.exbus.util.HttpUtil;
 import com.ex.exbus.util.XMLData;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -362,8 +366,10 @@ public class IntroActivity extends AppCompatActivity {
                 if(swbeonho != null && swbeonho.length() > 0){
                     if(swbeonho.length() > 7){
                         if(password != null && password.length() > 0){
-                            sendToken();
-                            getUserInfo(swbeonho, password);
+//                            sendToken();
+//                            getUserInfo(swbeonho, password);
+                            // kbr 2022.04.04
+                            getTokenCustom(swbeonho, password);
                         }else{
                             showToast("비밀번호를 입력해 주십시오.");
                         }
@@ -415,9 +421,24 @@ public class IntroActivity extends AppCompatActivity {
         });
     }
 
-    public void sendToken(){
+    /**
+     * kbr 2022.04.04
+     */
+    public Task<String> getTokenCustom(final String swbeonho, final String password) {
+         return FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                String token = task.getResult();
+                sendToken(token);
+                getUserInfo(swbeonho, password);
+            }
+        });
+    }
+
+//    public void sendToken(){
+    public void sendToken(String token){
         final Context context = getApplicationContext();
-        String token = FirebaseInstanceId.getInstance().getToken();
+//        String token = FirebaseInstanceId.getInstance().getToken();
         Log.d(TAG, "sendToken() - packageName : "+context.getPackageName());
         Log.d(TAG, "sendToken() - mdn : "+ getMdn(context));
         Log.d(TAG, "sendToken() - imei : "+getImei(context));
@@ -477,8 +498,9 @@ public class IntroActivity extends AppCompatActivity {
     // imei값 가져오기
     @SuppressLint("MissingPermission")
     public static String getImei(Context context){
-        TelephonyManager mTelephonyMgr = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
-        return mTelephonyMgr.getDeviceId();
+//        TelephonyManager mTelephonyMgr = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+        String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        return androidId;
     }
 
 }
