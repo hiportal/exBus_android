@@ -39,7 +39,6 @@ import com.ex.exbus.util.HttpUtil;
 import com.ex.exbus.util.XMLData;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONException;
@@ -369,7 +368,7 @@ public class IntroActivity extends AppCompatActivity {
 //                            sendToken();
 //                            getUserInfo(swbeonho, password);
                             // kbr 2022.04.04
-                            getTokenCustom(swbeonho, password);
+                            getToken(swbeonho, password);
                         }else{
                             showToast("비밀번호를 입력해 주십시오.");
                         }
@@ -424,7 +423,7 @@ public class IntroActivity extends AppCompatActivity {
     /**
      * kbr 2022.04.04
      */
-    public Task<String> getTokenCustom(final String swbeonho, final String password) {
+    public Task<String> getToken(final String swbeonho, final String password) {
          return FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {

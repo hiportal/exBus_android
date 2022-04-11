@@ -17,7 +17,6 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.ex.exbus.util.NotiFerment;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.Timer;
 
@@ -42,12 +41,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FirebaseInstanceId.getInstance().getToken();
-        Log.d(TAG, "onCreate() - token : "+FirebaseInstanceId.getInstance().getToken());
-
-        if(FirebaseInstanceId.getInstance().getToken() != null){
-            Log.d(TAG, "onCreate() - token2 : "+FirebaseInstanceId.getInstance().getToken());
-        }
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
