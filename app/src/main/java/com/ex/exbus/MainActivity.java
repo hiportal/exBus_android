@@ -18,6 +18,9 @@ import android.widget.Toast;
 
 import com.ex.exbus.util.NotiFerment;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Timer;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setDomStorageEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webView.setWebContentsDebuggingEnabled(true);
-        //WebView 화면크기에 맞추도록 설정 - setUseWideViewPort 와 같이 써야함
-        webSettings.setLoadWithOverviewMode(true);
         //wide viewport 설정 - setLoadWithOverviewMode 와 같이 써야함
+        webSettings.setLoadWithOverviewMode(true);
+        //WebView 화면크기에 맞추도록 설정 - setUseWideViewPort 와 같이 써야함
         webSettings.setUseWideViewPort(true);
         //캐시 사용 여부
         webSettings.setAppCacheEnabled(false);
@@ -92,15 +95,29 @@ public class MainActivity extends AppCompatActivity {
         Log.e("뒤로가기", webView.getUrl());
 
         // 티켓확인 화면 > back 클릭 시 > 무조건 main
-        if (webView.getUrl().equals("http://mvote.ex.co.kr/exBus/newExbus/checkTicket.html")) {
+        String click_url = webView.getUrl();
 
-            webView.loadUrl(launchUrl);
+        if (click_url.equals("http://mvote.ex.co.kr/exBus/newExbus/checkTicket.html")
+                || click_url.equals("http://mvote.ex.co.kr/exBus/newExbus/trainCheckTicket.html") ) {
+
+            if(!rgstTrgtClssCd.equals("D")){
+                //사용자
+                webView.loadUrl(launchUrl+"?Key="+id+"="+name+"="+mobile+"="+userType+"="+version+"=");
+            }else{
+                //버스운전자
+                webView.loadUrl(DriverUrl+"?Key="+id+"="+name+"="+mobile+"="+userType+"="+rgstTrgtClssCd+"="+version+"=");
+            }
         }
 
-        if (webView.canGoBack() && !webView.getUrl().equals("http://mvote.ex.co.kr/exBus/newExbus/checkTicket.html")) {
+        if (webView.canGoBack()
+                && (!click_url.equals("http://mvote.ex.co.kr/exBus/newExbus/checkTicket.html")
+                &&  !click_url.equals("http://mvote.ex.co.kr/exBus/newExbus/trainCheckTicket.html")
+                && !(click_url.indexOf("http://mvote.ex.co.kr/exBus/newExbus/index.html") > -1))) {
+
             webView.goBack();
 
         } else {
+
             if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
                 backKeyPressedTime = System.currentTimeMillis();
                 toast = Toast.makeText(this, "뒤로가기 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG);
@@ -108,11 +125,20 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
+            //홈 화면이면 바로종료
+            if((click_url.indexOf("http://mvote.ex.co.kr/exBus/newExbus/index.html") > -1) && (System.currentTimeMillis() <= backKeyPressedTime + 2500)){
+                moveTaskToBack(true); // 태스크를 백그라운드로 이동
+                finishAndRemoveTask(); // 액티비티 종료 + 태스크 리스트에서 지우기
+                android.os.Process.killProcess(android.os.Process.myPid()); // 앱 프로세스 종료
+            }
+
             if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
                 finish();
                 toast.cancel();
             }
         }
+
+
     }
 
     @Override
@@ -167,6 +193,30 @@ public class MainActivity extends AppCompatActivity {
         public void call(String driverPhoneNumber){
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+driverPhoneNumber));
             startActivity(intent);
+        }
+
+        @JavascriptInterface
+        public String getGps() throws JSONException {
+            String gpsParam = "";
+
+            GpsTracker gpsTracker = new GpsTracker(MainActivity.this);
+            double latitude = gpsTracker.getLatitude(); // 위도
+            double longitude = gpsTracker.getLongitude(); //경도
+
+            Log.d(TAG,"latitude= " + latitude);
+            Log.d(TAG,"longitude= " + longitude);
+
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("latitude", latitude);
+            jsonObj.put("longitude", longitude);
+
+            if(jsonObj == null){
+                gpsParam = "noneData";
+            }else{
+                gpsParam = jsonObj.toString();
+            }
+
+            return gpsParam;
         }
 
     }

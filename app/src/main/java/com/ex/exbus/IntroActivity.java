@@ -88,12 +88,12 @@ public class IntroActivity extends AppCompatActivity {
         Log.d(TAG,TAG+">> onCreate() - logoutYN:"+logoutYN);
 
         //logoutYN 이 Y 이면 로그아웃 진행
-		if(logoutYN.equals("Y")){
-			CommonUtil.removePrefString(IntroActivity.this, "id");
-			CommonUtil.removePrefString(IntroActivity.this, "name");
-			CommonUtil.removePrefString(IntroActivity.this, "mobile");
-			CommonUtil.removePrefString(IntroActivity.this, "userType");
-			CommonUtil.removePrefString(IntroActivity.this, "rgstTrgtClssCd");
+        if(logoutYN.equals("Y")){
+            CommonUtil.removePrefString(IntroActivity.this, "id");
+            CommonUtil.removePrefString(IntroActivity.this, "name");
+            CommonUtil.removePrefString(IntroActivity.this, "mobile");
+            CommonUtil.removePrefString(IntroActivity.this, "userType");
+            CommonUtil.removePrefString(IntroActivity.this, "rgstTrgtClssCd");
             Log.d(TAG, "----------========== id (logout) : "+CommonUtil.getPrefString(IntroActivity.this, "id"));
         }
 
@@ -180,11 +180,11 @@ public class IntroActivity extends AppCompatActivity {
         if(!checkNetwork()){
             AlertDialog.Builder alert = new AlertDialog.Builder(IntroActivity.this);
             alert.setPositiveButton(getResources().getString(R.string.confirm), new DialogInterface.OnClickListener(){
-               @Override
-               public void onClick(DialogInterface dialog, int which){
-                   dialog.dismiss();
-                   finish();
-               }
+                @Override
+                public void onClick(DialogInterface dialog, int which){
+                    dialog.dismiss();
+                    finish();
+                }
             });
         }else{
             pg_login = (ProgressBar)findViewById(R.id.progressBar1);
@@ -265,7 +265,7 @@ public class IntroActivity extends AppCompatActivity {
                                 Log.d(TAG, "----------========== id (재진입시) : "+CommonUtil.getPrefString(IntroActivity.this, "id"));
                                 insertUserLog();
                             }
-                        //비밀번호 오류
+                            //비밀번호 오류
                         }else if(jsonobject.get("result").equals("0")){
                             showToast("비밀번호를 확인하여 주십시오.");
                         }else{
@@ -352,6 +352,10 @@ public class IntroActivity extends AppCompatActivity {
         et_login_id.requestFocus();
 
         et_login_pwd = (EditText) dialog.findViewById(R.id.et_login_pwd);
+
+        //취소버튼 추가
+        Button btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
+
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
@@ -418,13 +422,30 @@ public class IntroActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View view) {
+
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(et_login_id.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(et_login_pwd.getWindowToken(), 0);
+
+                moveTaskToBack(true); // 태스크를 백그라운드로 이동
+                finishAndRemoveTask(); // 액티비티 종료 + 태스크 리스트에서 지우기
+                android.os.Process.killProcess(android.os.Process.myPid()); // 앱 프로세스 종료
+
+            }
+        });
     }
 
     /**
      * kbr 2022.04.04
      */
     public Task<String> getToken(final String swbeonho, final String password) {
-         return FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+        return FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
                 String token = task.getResult();
@@ -434,7 +455,7 @@ public class IntroActivity extends AppCompatActivity {
         });
     }
 
-//    public void sendToken(){
+    //    public void sendToken(){
     public void sendToken(String token){
         final Context context = getApplicationContext();
 //        String token = FirebaseInstanceId.getInstance().getToken();

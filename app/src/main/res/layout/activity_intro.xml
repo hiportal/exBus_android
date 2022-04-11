@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/intro_padding_bottom"
-    android:background="@drawable/intro"
+    android:background="@drawable/intro2"
     android:orientation="vertical"
     tools:context=".IntroActivity">
 
