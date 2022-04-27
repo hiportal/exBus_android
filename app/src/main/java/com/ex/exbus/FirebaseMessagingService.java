@@ -13,14 +13,36 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.RemoteMessage;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
     private static final String TAG = "FirebaseMsgService";
     String tag = "FirebaseFCM ----- ";
+
+    public static String token;
+
+    // kbr 2022.04.27
+    @Override
+    public void onNewToken(String token) {
+        generateToken();
+    }
+
+    public static void generateToken() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        FirebaseMessagingService.token = task.getResult();
+                    }
+                });
+    }
 
     //메세지 수신
     @Override
