@@ -338,7 +338,7 @@ public class IntroActivity extends AppCompatActivity {
                 }
             };
 
-            sendToken();
+            getToken();
             HttpConnection conn = new HttpConnection(request);
             conn.request();
         }
@@ -373,10 +373,8 @@ public class IntroActivity extends AppCompatActivity {
                 if(swbeonho != null && swbeonho.length() > 0){
                     if(swbeonho.length() > 7){
                         if(password != null && password.length() > 0){
-                            sendToken();
+                            getToken();
                             getUserInfo(swbeonho, password);
-                            // kbr 2022.04.04
-//                            getToken(swbeonho, password);
                         }else{
                             showToast("비밀번호를 입력해 주십시오.");
                         }
@@ -448,21 +446,20 @@ public class IntroActivity extends AppCompatActivity {
     /**
      * kbr 2022.04.04
      */
-//    public Task<String> getToken(final String swbeonho, final String password) {
-//        return FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-//            @Override
-//            public void onComplete(@NonNull Task<String> task) {
-//                String token = task.getResult();
-//                sendToken(token);
-//                getUserInfo(swbeonho, password);
-//            }
-//        });
-//    }
+    public Task<String> getToken() {
+        return FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                String token = task.getResult();
+                sendToken(token);
+            }
+        });
+    }
 
-        public void sendToken(){
-//    public void sendToken(String token){
+//        public void sendToken(){
+    public void sendToken(String token){
         final Context context = getApplicationContext();
-        String token = FirebaseMessagingService.token;
+//        String token = FirebaseMessagingService.token;
         Log.d(TAG, "sendToken() - packageName : "+context.getPackageName());
         Log.d(TAG, "sendToken() - mdn : "+ getMdn(context));
         Log.d(TAG, "sendToken() - imei : "+getImei(context));
