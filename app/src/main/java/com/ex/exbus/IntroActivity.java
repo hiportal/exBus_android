@@ -80,7 +80,6 @@ public class IntroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FirebaseMessagingService.generateToken();   // kbr 2022.04.27 - 토큰 생성
         setContentView(R.layout.activity_intro);
         Intent intent = getIntent();
         String logoutYN = intent.getStringExtra("logoutYN");

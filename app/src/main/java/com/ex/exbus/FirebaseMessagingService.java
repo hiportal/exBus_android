@@ -26,24 +26,6 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     private static final String TAG = "FirebaseMsgService";
     String tag = "FirebaseFCM ----- ";
 
-    public static String token;
-
-    // kbr 2022.04.27
-    @Override
-    public void onNewToken(String token) {
-        generateToken();
-    }
-
-    public static void generateToken() {
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        FirebaseMessagingService.token = task.getResult();
-                    }
-                });
-    }
-
     //메세지 수신
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
