@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">exBus</string>
+    <string name="app_name">ex출퇴근</string>
     <string name="start">시작하기</string>
     <string name="confirm">확인</string>
     <string name="network">인터넷 연결 확인 후에 사용하여 주십시오.</string>
-    <string name="permission_grant">exBUS 앱 사용을 위해 권한을 허용후 사용해 주십시오.</string>
+    <string name="permission_grant">ex출퇴근 앱 사용을 위해 권한을 허용후 사용해 주십시오.</string>
     <string name="default_notification_channel_id">default_notification_channel_id</string>
 <!--    <string name="default_web_client_id" translatable="false">836912633778-bee5dvgblvgbf233t01vl9hnlv2anv6m.apps.googleusercontent.com</string>
     <string name="firebase_database_url" translatable="false">https://exbus-18404.firebaseio.com</string>

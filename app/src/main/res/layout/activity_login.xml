@@ -24,7 +24,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:background="#FFFFFF"
-                android:src="@drawable/btn_logo" />
+                android:src="@drawable/gubun_logo" />
 
             <TextView
                 android:layout_width="wrap_content"
