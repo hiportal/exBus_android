@@ -281,6 +281,8 @@ public class IntroActivity extends AppCompatActivity {
                     }
                 }
             };
+
+            getToken();
             HttpConnection conn = new HttpConnection(request);
             conn.request();
         }
@@ -372,7 +374,6 @@ public class IntroActivity extends AppCompatActivity {
                 if(swbeonho != null && swbeonho.length() > 0){
                     if(swbeonho.length() > 7){
                         if(password != null && password.length() > 0){
-                            getToken();
                             getUserInfo(swbeonho, password);
                         }else{
                             showToast("비밀번호를 입력해 주십시오.");
