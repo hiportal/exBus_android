@@ -59,10 +59,12 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
     private void sendNotification(String messageBody){
         Log.d(TAG, tag+"sendNotification() - messageBody : "+messageBody);
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+        //푸시를 클릭했을때 이동
+        Intent intent = new Intent(this, IntroActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 , intent, PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+
         String channelId = "com.ex.exbus";
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
