@@ -30,6 +30,7 @@ public class VersionActivity extends Activity {
         String mobile = intent.getStringExtra("mobile");
         String userType = intent.getStringExtra("userType");
         String rgstTrgtClssCd = intent.getStringExtra("rgstTrgtClssCd");
+        String mdn = intent.getStringExtra("mdn");
         versionChk(userType);
     }
 
@@ -116,23 +117,26 @@ public class VersionActivity extends Activity {
             String mobile = intent.getStringExtra("mobile");
             String userType = intent.getStringExtra("userType");
             String rgstTrgtClssCd = intent.getStringExtra("rgstTrgtClssCd");
+            String mdn = intent.getStringExtra("mdn");
             Log.d(TAG, "m_id : "+id);
             Log.d(TAG, "m_name : "+name);
             Log.d(TAG, "m_mobile : "+mobile);
             Log.d(TAG, "m_type : "+userType);
             Log.d(TAG, "m_rgstTrgtClssCd : "+rgstTrgtClssCd);
+            Log.d(TAG, "m_mdn : "+mdn);
 
-            goMainActivity(id, name, mobile, userType, rgstTrgtClssCd);
+            goMainActivity(id, name, mobile, userType, rgstTrgtClssCd, mdn);
         }
     }
 
-    public void goMainActivity(String id, String name, String mobile, String userType, String rgstTrgtClssCd){
+    public void goMainActivity(String id, String name, String mobile, String userType, String rgstTrgtClssCd, String mdn){
         Intent intent = new Intent(VersionActivity.this, MainActivity.class);
         intent.putExtra("id", id);
         intent.putExtra("name", name);
         intent.putExtra("mobile", mobile);
         intent.putExtra("userType", userType);
         intent.putExtra("rgstTrgtClssCd",rgstTrgtClssCd);
+        intent.putExtra("mdn",mdn);
         startActivity(intent);
         finish();
     }

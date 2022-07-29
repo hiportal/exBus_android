@@ -66,6 +66,7 @@ public class IntroActivity extends AppCompatActivity {
     private String m_mobile;
     private String m_type;
     private String m_rgstTrgtClssCd;
+    private String m_mdn;
     private String m_result;
     private String logoutYn;
 
@@ -95,6 +96,7 @@ public class IntroActivity extends AppCompatActivity {
             CommonUtil.removePrefString(IntroActivity.this, "mobile");
             CommonUtil.removePrefString(IntroActivity.this, "userType");
             CommonUtil.removePrefString(IntroActivity.this, "rgstTrgtClssCd");
+            CommonUtil.removePrefString(IntroActivity.this, "mdn");
             Log.d(TAG, "----------========== id (logout) : "+CommonUtil.getPrefString(IntroActivity.this, "id"));
         }
 
@@ -172,6 +174,7 @@ public class IntroActivity extends AppCompatActivity {
             intent.putExtra("mobile", m_mobile);
             intent.putExtra("userType", m_type);
             intent.putExtra("rgstTrgtClssCd",m_rgstTrgtClssCd);
+            intent.putExtra("mdn",m_mdn);
             startActivity(intent);
             finish();
         }
@@ -255,15 +258,18 @@ public class IntroActivity extends AppCompatActivity {
                         //로그인 성공
                         if(jsonobject.get("result").equals("1")){
                             if(stArr.contains("userNm")){
+                                Context context = getApplicationContext();
                                 m_name = (String)jsonobject.get("userNm");
                                 m_mobile = (String)jsonobject.get("mobile");
                                 m_type = (String)jsonobject.get("userType");
                                 m_rgstTrgtClssCd = (String)jsonobject.get("rgstTrgtClssCd");
+                                m_mdn = getMdn(context);
                                 CommonUtil.setPrefString(IntroActivity.this, "id", m_id);
                                 CommonUtil.setPrefString(IntroActivity.this, "name", m_name);
                                 CommonUtil.setPrefString(IntroActivity.this, "mobile", m_mobile);
                                 CommonUtil.setPrefString(IntroActivity.this, "userType", m_type);
                                 CommonUtil.setPrefString(IntroActivity.this, "rgstTrgtClssCd", m_rgstTrgtClssCd);
+                                CommonUtil.setPrefString(IntroActivity.this, "mdn", m_mdn);
                                 Log.d(TAG, "----------========== id (재진입시) : "+CommonUtil.getPrefString(IntroActivity.this, "id"));
                                 insertUserLog();
                             }
@@ -310,15 +316,18 @@ public class IntroActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonobject = new JSONObject(json.trim());
                         if(jsonobject != null && jsonobject.get("result").equals("1")){
+                            Context context = getApplicationContext();
                             m_name = (String)jsonobject.get("userNm");
                             m_mobile = (String)jsonobject.get("mobile");
                             m_type = (String)jsonobject.get("userType");
                             m_rgstTrgtClssCd = (String)jsonobject.get("rgstTrgtClssCd");
+                            m_mdn = getMdn(context);
                             CommonUtil.setPrefString(IntroActivity.this, "id", m_id);
                             CommonUtil.setPrefString(IntroActivity.this, "name", m_name);
                             CommonUtil.setPrefString(IntroActivity.this, "mobile", m_mobile);
                             CommonUtil.setPrefString(IntroActivity.this, "userType", m_type);
                             CommonUtil.setPrefString(IntroActivity.this, "rgstTrgtClssCd", m_rgstTrgtClssCd);
+                            CommonUtil.setPrefString(IntroActivity.this, "mdn", m_mdn);
                             Log.d(TAG, "----------========== id (재진입시2) : "+CommonUtil.getPrefString(IntroActivity.this, "id"));
                             insertUserLog();
 
@@ -329,6 +338,7 @@ public class IntroActivity extends AppCompatActivity {
                             CommonUtil.removePrefString(IntroActivity.this, "mobile");
                             CommonUtil.removePrefString(IntroActivity.this, "userType");
                             CommonUtil.removePrefString(IntroActivity.this, "rgstTrgtClssCd");
+                            CommonUtil.removePrefString(IntroActivity.this, "mdn");
                             Log.d(TAG, "----------========== id (사원번호 확인해 주십시오) : "+CommonUtil.getPrefString(IntroActivity.this, "id"));
                             getUser();
                         }

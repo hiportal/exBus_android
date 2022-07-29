@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     String mobile = "";
     String userType = "";
     String rgstTrgtClssCd = "";
+    String mdn = "";
     String version = "";
 
     private long backKeyPressedTime = 0;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         mobile = intent.getStringExtra("mobile");
         userType = intent.getStringExtra("userType");
         rgstTrgtClssCd = intent.getStringExtra("rgstTrgtClssCd");
+        mdn = intent.getStringExtra("mdn");
 
         webView = (WebView)findViewById(R.id.webView);
         WebSettings webSettings = webView.getSettings();
@@ -82,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(!rgstTrgtClssCd.equals("D")){
             //사용자
-            webView.loadUrl(launchUrl+"?Key="+id+"="+name+"="+mobile+"="+userType+"="+version+"=");
+            webView.loadUrl(launchUrl+"?Key="+id+"="+name+"="+mobile+"="+userType+"="+version+"="+mdn+"=");
         }else{
             //버스운전자
             webView.loadUrl(DriverUrl+"?Key="+id+"="+name+"="+mobile+"="+userType+"="+rgstTrgtClssCd+"="+version+"=");
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
             if(!rgstTrgtClssCd.equals("D")){
                 //사용자
-                webView.loadUrl(launchUrl+"?Key="+id+"="+name+"="+mobile+"="+userType+"="+version+"=");
+                webView.loadUrl(launchUrl+"?Key="+id+"="+name+"="+mobile+"="+userType+"="+version+"="+mdn+"=");
             }else{
                 //버스운전자
                 webView.loadUrl(DriverUrl+"?Key="+id+"="+name+"="+mobile+"="+userType+"="+rgstTrgtClssCd+"="+version+"=");
